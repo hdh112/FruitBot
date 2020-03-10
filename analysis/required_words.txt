@@ -1,0 +1,13 @@
+1
+fruit_order.txt
+과일/NNG
+주문/NNG
+	주문/NNG 하/XSV 려구/EF
+	주문/NNG 해/XSV+EC 줘/VX+EF
+	주문/NNG 해/XSV+EC 줘/VX+EC
+	주문/NNG 할래/XSV+EF
+	주문/NNG 할래/XSV+EC
+	주문/NNG 하/XSV 려는데/EC
+	주문/NNG 할까/XSV+EF
+	주문/NNG 해줄래/VV+EC+VX+EF
+	주문/NNG 할/XSV+ETM 게/NNB+JKS
