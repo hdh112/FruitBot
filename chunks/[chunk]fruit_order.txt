@@ -1,0 +1,27 @@
+과일/NNG 시켜/VV+EC 줘/VX+EC 
+ㅎㅎ/IC 과일/NNG 주문/NNG 하/XSV 려구/EF !/SF 
+ㅋㅋ/IC 과일/NNG 주문/NNG 해/XSV+EC 줘/VX+EF !/SF 
+과일/NNG 좀/MAG 주문/NNG 해/XSV+EC 줄래/VX+EF ?/SF 
+과일/NNG 좀/MAG 주문/NNG 해/XSV+EC 줘/VX+EC 
+과일/NNG 주문/NNG 해/XSV+EC 줘/VX+EC 
+과일/NNG 주문/NNG 할래/XSV+EF !/SF 
+과일/NNG 주문/NNG 할래/XSV+EC 
+안녕/IC ㅎㅎ/IC 과일/NNG 주문/NNG 하/XSV 려는데/EC 오늘/MAG 과일/NNG 뭐/IC 있/VA 어/EF ?/SF 
+과일/NNG 주문/NNG 할까/XSV+EF ?/SF 
+과일/NNG 주문/NNG 좀/MAG 해줄래/VV+EC+VX+EF ?/SF 
+ㅎㅎ/IC 반가워/VA+EC 과일/NNG 좀/MAG 주문/NNG 해/XSV+EC 줘/VX+EF !/SF 
+주문/NNG 할/XSV+ETM 게/NNB+JKS 
+과일/NNG 주문/NNG 할게/XSV+EF !/SF 
+과일/NNG 주문/NNG 좀/MAG 해/VV+EC 줘/VX+EC 
+과일/NNG 주문/NNG 해야/XSV+EC 하/VV 는데/EC 추천/NNG 좀/MAG !/SF 
+과일/NNG 사/VV 고/EC 싶/VX 어/EC 
+과일/NNG 주문/NNG 해야/XSV+EC 돼/VV+EC 
+과일/NNG 필요/NNG 해/XSV+EC 
+과일/NNG 이/JKS 필요/NNG 해/XSV+EC 
+과일/NNG 시/NNG 킬/XSV+ETN+JKO 래/VCP+EF !/SF 
+과일/NNG 주문/NNG 
+과일/NNG 시킬/VV+ETM 게/NNB+JKS 
+ㅎㅎㅎ/IC 과일/NNG 먹/VV 고/EC 싶/VX 어서/EC 불렀/VV+EP 어/EC 
+과일/NNG 먹/VV 을래/EC 
+과일/NNG 먹/VV 고/EC 싶/VX 다/EC 
+과일/NNG 먹/VV 고/EC 싶/VX 어/EC 
