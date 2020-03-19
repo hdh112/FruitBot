@@ -7,8 +7,9 @@
 import konlpy
 # import nltk
 
-file_in = open("fruit_order.txt", "r")
+file_in = open("sentences/fruit_order.txt", "r")
 file_out = open("[chunk]fruit_order.txt", "w")
+file_words = open("[words]fruit_order.txt", "w")
 
 for line in file_in:
 	# POS tag a sentence
@@ -36,7 +37,10 @@ for line in file_in:
 	for pair in words:
 		word, tag = pair
 		file_out.write("{}/{} ".format(word, tag))
+		file_words.write("{} ".format(word))
 	file_out.write("\n")
+	file_words.write("\n")
 
 file_in.close()
 file_out.close()
+file_words.close()
