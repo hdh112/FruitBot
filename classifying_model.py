@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import numpy as np
+import tensorflow.keras.layers as layers
 
 DIRECTORY = 'words/'
 FILE_NAMES = ['[words]fruit_order.txt']
@@ -39,14 +40,15 @@ BUFFER_SIZE = 30
 BATCH_SIZE = 10
 TAKE_SIZE = 3
 
+# all_labeled_data = all_labeled_data.shuffle(BUFFER_SIZE, reshuffle_each_iteration=True)
 all_labeled_data = all_labeled_data.shuffle(BUFFER_SIZE, reshuffle_each_iteration=False)
 
 #######################################################
 # Encode vocabulary
 # TODO: encode punctuation marks
-print(len(vocabulary_set))
-print(vocabulary_set)
-print(next(iter(all_labeled_data))[0])
+vocab_size = len(vocabulary_set)
+print("Vocabulary size:", vocab_size)
+# print(vocabulary_set)
 encoder = tfds.features.text.TokenTextEncoder(vocabulary_set)
 
 def encode(text_tensor, label):
@@ -70,7 +72,34 @@ all_encoded_data = all_labeled_data.map(encode_map_fn)
 #######################################################
 # Split dataset into train and test batches
 train_data = all_encoded_data.skip(TAKE_SIZE).shuffle(BUFFER_SIZE)
-train_data = train_data.padded_batch(BATCH_SIZE)
+train_data = train_data.padded_batch(BATCH_SIZE, padded_shapes=([None], []))
 
 test_data = all_encoded_data.take(TAKE_SIZE)
-test_data = test_data.padded_batch(BATCH_SIZE)
+test_data = test_data.padded_batch(BATCH_SIZE, padded_shapes=([None], []))
+
+# Introduce a new vocab of `0` (padding)
+vocab_size += 1
+
+#######################################################
+# Build model
+embedding_dim = 32
+lstm_units = 16
+model = tf.keras.Sequential()
+model.add(layers.Embedding(vocab_size, embedding_dim))
+model.add(layers.Bidirectional(layers.LSTM(lstm_units)))
+# TODO: adjust layers
+model.add(layers.Dense(lstm_units//2, activation='relu'))
+# Output layer; its size is number of labels
+model.add(layers.Dense(len(FILE_NAMES)))
+
+# TODO: Increase number of labels
+model.compile(	optimizer='adam',
+				loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+				metrics=['accuracy'])
+
+#######################################################
+# Train model
+# TODO: adjust epochs as more sentences get added
+model.fit(train_data, epochs=3, validation_data=test_data)
+eval_loss, eval_acc = model.evaluate(test_data)
+print('Evaluation loss: {:.4f}. Evaluation accuracy:{:.4f}'.format(eval_loss, eval_acc))
