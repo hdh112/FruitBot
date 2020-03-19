@@ -83,7 +83,9 @@ vocab_size += 1
 #######################################################
 # Build model
 embedding_dim = 32
+# TODO: adjust number of LSTM units according to sentence length
 lstm_units = 16
+
 model = tf.keras.Sequential()
 model.add(layers.Embedding(vocab_size, embedding_dim))
 model.add(layers.Bidirectional(layers.LSTM(lstm_units)))
