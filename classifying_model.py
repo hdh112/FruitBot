@@ -108,6 +108,10 @@ print('Evaluation loss: {:.4f}. Evaluation accuracy:{:.4f}'.format(eval_loss, ev
 
 #######################################################
 # Predict sample sentence with the trained model
+# Note: Right now, `train_data`/`test_data` includes this `sample_sentence`.
+#            It was included just for knowing the tokenized version of `sample_sentence`.
+#            When actually testing, `sample_sentence` must be removed from `train_data`/`test_data`.
+# TODO: handle IndexOutOfBound error when tokenized word in `sample_sentence` is not in the `encoder`'s vocabulary set
 sample_sentence = "과일 주문 하 고 싶 어"
 encoded_sentence = encoder.encode(sample_sentence)
 print("Encoded sentence:", encoded_sentence)
