@@ -105,3 +105,13 @@ model.compile(	optimizer='adam',
 model.fit(train_data, epochs=3, validation_data=test_data)
 eval_loss, eval_acc = model.evaluate(test_data)
 print('Evaluation loss: {:.4f}. Evaluation accuracy:{:.4f}'.format(eval_loss, eval_acc))
+
+#######################################################
+# Predict sample sentence with the trained model
+sample_sentence = "과일 주문 하 고 싶 어"
+encoded_sentence = encoder.encode(sample_sentence)
+print("Encoded sentence:", encoded_sentence)
+
+sample_tensor = tf.constant(np.array(encoded_sentence).reshape(1,6))
+print("Sample tensor:", sample_tensor)
+print("Predicted label:", model.predict(sample_tensor))
