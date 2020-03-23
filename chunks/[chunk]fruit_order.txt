@@ -25,3 +25,5 @@
 과일/NNG 먹/VV 을래/EC 
 과일/NNG 먹/VV 고/EC 싶/VX 다/EC 
 과일/NNG 먹/VV 고/EC 싶/VX 어/EC 
+과일/NNG 주문/NNG 하/XSV 고/EC 싶/VX 어/EC 
+과일/NNG 주문/NNG 할/XSV+ETM 거/NNB 야/VCP+EF 
