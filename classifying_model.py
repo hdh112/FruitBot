@@ -8,11 +8,11 @@ import tensorflow.keras.layers as layers
 
 DIRECTORY = 'words/'
 FILE_NAMES = ['[words]fruit_order.txt']
+# TODO: move sentences with multiple intents to a new .txt
+FILE_TAGS = [[1, 0, 0, 0, 0, 0, 0, 0]]
 labeled_data_sets = []
 vocabulary_set = set()
 
-# TODO: make labels more specific, according to tags and intent
-# Label 0: order
 def labeler(sentence, index):
 	return sentence, tf.cast(index, tf.int64)
 
@@ -22,7 +22,7 @@ for i, file_name in enumerate(FILE_NAMES):
 	lines_dataset = tf.data.TextLineDataset(DIRECTORY + file_name)
 	# TODO: iterate lines_dataset only once;
 	# 		for now, iterates twice because of decoding bytes issue
-	labeled_dataset = lines_dataset.map(lambda sent: labeler(sent, i))
+	labeled_dataset = lines_dataset.map(lambda sent: labeler(sent, FILE_TAGS[i]))
 	for line in lines_dataset.as_numpy_iterator():
 		# TODO: handle multiple meanings of a single word
 		vocabulary_set.update(line.rstrip().split())
@@ -63,7 +63,7 @@ def encode_map_fn(text, label):
 
 	# Adjust shape for components of `tf.data.Dataset`
 	encoded_text.set_shape([None])
-	label.set_shape([])
+	label.set_shape([None])
 
 	return encoded_text, label
 
@@ -72,12 +72,14 @@ all_encoded_data = all_labeled_data.map(encode_map_fn)
 #######################################################
 # Split dataset into train and test batches
 train_data = all_encoded_data.skip(TAKE_SIZE).shuffle(BUFFER_SIZE)
-train_data = train_data.padded_batch(BATCH_SIZE, padded_shapes=([None], []))
+train_data = train_data.padded_batch(BATCH_SIZE, padded_shapes=([None], [None]))
 
 test_data = all_encoded_data.take(TAKE_SIZE)
-test_data = test_data.padded_batch(BATCH_SIZE, padded_shapes=([None], []))
+test_data = test_data.padded_batch(BATCH_SIZE, padded_shapes=([None], [None]))
 
-# Introduce a new vocab of `0` (padding)
+# Introduce a new vocab of `0`(padding) and `len(vocabulary_set)`(word not in the dictionary)
+# TODO: Find effective encoded value for the word that's not in the dictionary, to decrease loss
+vocab_size += 1
 vocab_size += 1
 
 #######################################################
@@ -88,15 +90,15 @@ lstm_units = 16
 
 model = tf.keras.Sequential()
 model.add(layers.Embedding(vocab_size, embedding_dim))
+# TODO: Conv2D + BatchNormalization + ReLU / Pool
 model.add(layers.Bidirectional(layers.LSTM(lstm_units)))
-# TODO: adjust layers
-model.add(layers.Dense(lstm_units//2, activation='relu'))
-# Output layer; its size is number of labels
-model.add(layers.Dense(len(FILE_NAMES)))
+model.add(layers.Dense(lstm_units*2, activation='relu'))
+# TODO: Dropout
+model.add(layers.Dense(len(FILE_NAMES)*8, name='output_layer'))
 
 # TODO: Increase number of labels
 model.compile(	optimizer='adam',
-				loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+				loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
 				metrics=['accuracy'])
 
 #######################################################
@@ -108,14 +110,10 @@ print('Evaluation loss: {:.4f}. Evaluation accuracy:{:.4f}'.format(eval_loss, ev
 
 #######################################################
 # Predict sample sentence with the trained model
-# Note: Right now, `train_data`/`test_data` includes this `sample_sentence`.
-#            It was included just for knowing the tokenized version of `sample_sentence`.
-#            When actually testing, `sample_sentence` must be removed from `train_data`/`test_data`.
-# TODO: handle IndexOutOfBound error when tokenized word in `sample_sentence` is not in the `encoder`'s vocabulary set
-sample_sentence = "과일 주문 하 고 싶 어"
+sample_sentence = "과일 주문 하 자"
 encoded_sentence = encoder.encode(sample_sentence)
 print("Encoded sentence:", encoded_sentence)
 
-sample_tensor = tf.constant(np.array(encoded_sentence).reshape(1,6))
+sample_tensor = tf.constant(np.array(encoded_sentence).reshape(1,len(encoded_sentence)))
 print("Sample tensor:", sample_tensor)
 print("Predicted label:", model.predict(sample_tensor))
