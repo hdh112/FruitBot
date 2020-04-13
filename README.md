@@ -4,7 +4,7 @@ Empathy chatbot implementation that orders fruits.
 ## Target user
 Students & one-person households, to maintain physical/mental health
 * When living alone, one can easily become less aware of taking care of health, or easily feel lonely.
-* With _FruitBot_, you're not alone. Because it is there for you, you become aware that you have to eat good and be healthy :)
+* With _FruitBot_, you're not alone. Because it is there beside you, you become aware that you have to eat good and be healthy :)
 
 ## Features
 ### Informal tone
@@ -28,17 +28,17 @@ For now, you can order the following fruit options!
 [간편함 / 가격 / 양 / 크기 / 맛]
 
 If nothing particular comes up in your mind, you can tell me what you want or need according to the following. I'll recommend an option based on it :D
-[Convenient / Price / Quantity / Size / Taste]
+[Convenience / Price / Quantity / Size / Taste]
 ```
 
 ### Does not force to order
 * _FruitBot_ does not always lead the user to order fruits.
-    * This way, the user feels **less pressure** when talking with _FruitBot_. The user can just chat with _FruitBot_, and does not always need to order fruits when having a conversation.
+    * This way, the user feels **less pressure** when talking with _FruitBot_.
+        * The user can just chat with _FruitBot_, and does not always need to order fruits when having a conversation.
     * As users have less burden, this leads users to **chat more frequently** with _FruitBot_.
     
 ### Empathize to users having a hard time
-* _FruitBot_ empathizes to the user's status, especially when the user is having a hard time.\
-_FruitBot_ is here for you. It's always by your side :)
+* _FruitBot_ empathizes to the user's status, especially when the user is having a hard time.
 * Examples of user status:
 ```
 sad: 슬퍼 ㅠㅠ / 기운이 없어 / 무기력해 / 바빠 / 시간이 없어 ㅠㅠ / 힘들어 / 우울해
@@ -47,8 +47,7 @@ sick: 아파 / 몸이 허해
 ```
 
 ### Korean language
-* Currently, _FruitBot_ is implemented in Korean, since my(Doheon Hwang's) mother tongue is in Korean.\
-I could most naturally express the above intentions in Korean.
+* Currently, _FruitBot_ is implemented in Korean, since my(Doheon Hwang's) mother tongue is in Korean. I could most naturally express the above intentions in Korean.
 * Should any of you want to contribute in another natural language, you are more than welcome!
 
 ## Scope
@@ -57,8 +56,16 @@ Once the implementation is complete, this scope may be extended further.
 
 ## Tools
 * Language: Python
-* Machine learning library: Tensorflow (Ex: [classifying_model.py](https://github.com/hdh112/FruitBot/blob/master/classifying_model.py))
-* Korean preprocessing package: konlpy.Mecab() (Ex: [chunk_analysis.py](https://github.com/hdh112/FruitBot/blob/master/chunk_analysis.py))
+* Machine learning library: [Tensorflow](https://www.tensorflow.org/)
+* Korean preprocessing package: `Mecab()` of [KoNLPy](http://konlpy.org/en/latest/)
+
+## Directory specification
+* ./[chunk_analysis.py](https://github.com/hdh112/FruitBot/blob/master/chunk_analysis.py): Splits sentences into chunks, according to tags(ex: noun, verb, etc.). The splitter utilizes `konlpy.Mecab()`.
+* ./[classifying_model.py](https://github.com/hdh112/FruitBot/blob/master/classifying_model.py): Classifies sentences according to intent. The classifier utilizes Tensorflow.
+* ./sentences/*: Contains input sentences.
+* ./words/*: Contains sentences splitted into words.
+* ./chunks/*: Contains sentences splitted into chunks, whereas a chunk is a tagged word.
+* ./analysis/*: Contains analysis notes on input sentences.
 
 ## Contributors
 * Doheon Hwang - [hdh112](https://github.com/hdh112/)
