@@ -6,8 +6,11 @@ import tensorflow_datasets as tfds
 import numpy as np
 import tensorflow.keras.layers as layers
 
-DIRECTORY = 'words/'
-FILE_NAMES = ['[words]fruit_order.txt']
+# DIRECTORY = 'words/'
+# FILE_NAMES = ['[words]fruit_order.txt']
+DIRECTORY = 'essential_phrases/'
+FILE_NAMES = ['[essential]fruit_order.txt']
+
 # TODO: move sentences with multiple intents to a new .txt
 FILE_TAGS = [[1, 0, 0, 0, 0, 0, 0, 0]]
 labeled_data_sets = []
@@ -86,7 +89,9 @@ vocab_size += 1
 # Build model
 embedding_dim = 128
 # TODO: adjust number of LSTM units according to sentence length
-lstm_units = 16
+# lstm_units = 16
+lstm_units = 8
+
 
 model = tf.keras.Sequential()
 model.add(layers.Embedding(vocab_size, embedding_dim))
@@ -110,7 +115,8 @@ print('Evaluation loss: {:.4f}. Evaluation accuracy:{:.4f}'.format(eval_loss, ev
 
 #######################################################
 # Predict sample sentence with the trained model
-sample_sentence = "과일 주문 하 자"
+# sample_sentence = "과일 주문 하 자"
+sample_sentence = "과일 주문"
 encoded_sentence = encoder.encode(sample_sentence)
 print("Encoded sentence:", encoded_sentence)
 
