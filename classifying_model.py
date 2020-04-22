@@ -87,8 +87,7 @@ vocab_size += 1
 
 #######################################################
 # Build model
-# embedding_dim = 128
-embedding_dim = 64
+embedding_dim = 128
 # TODO: adjust number of LSTM units according to sentence length
 # lstm_units = 16
 lstm_units = 8
