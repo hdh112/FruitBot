@@ -84,7 +84,7 @@ vocab_size += 1
 
 #######################################################
 # Build model
-embedding_dim = 32
+embedding_dim = 128
 # TODO: adjust number of LSTM units according to sentence length
 lstm_units = 16
 
@@ -104,7 +104,7 @@ model.compile(	optimizer='adam',
 #######################################################
 # Train model
 # TODO: adjust epochs as more sentences get added
-model.fit(train_data, epochs=3, validation_data=test_data)
+model.fit(train_data, epochs=2, validation_data=test_data)
 eval_loss, eval_acc = model.evaluate(test_data)
 print('Evaluation loss: {:.4f}. Evaluation accuracy:{:.4f}'.format(eval_loss, eval_acc))
 
