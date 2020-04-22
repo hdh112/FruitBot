@@ -18,6 +18,17 @@ for line in file_in:
 	sentence = r'\u' + line.strip()
 	words = konlpy.tag._mecab.Mecab().pos(sentence)
 
+	# 	# Remove unicode encodings
+	# 	words.pop(0)
+	# 	words.pop(0)
+
+	# 	for pair in words:
+	# 		word, tag = pair
+	# 		file_out.write("{}/{} ".format(word, tag))
+	# 		file_words.write("{} ".format(word))
+	# 	file_out.write("\n")
+	# 	file_words.write("\n")
+
 	# Define a chunk grammar, or chunking rules, then chunk
 	# TODO: Modify chunking rules by my needs
 	grammar = """
@@ -27,6 +38,7 @@ for line in file_in:
 
 	parser = nltk.RegexpParser(grammar)
 	chunks = parser.parse(words)
+	# print(chunks.pprint())
 	
 	# Essential [Noun + Verb] phrases
 	for subtree in chunks.subtrees():
@@ -46,19 +58,6 @@ for line in file_in:
 				tags.pop(0)
 			'''
 	# print(tags)
-
-	# print(chunks.pprint())
-
-	# 	# Remove unicode encodings
-	# 	words.pop(0)
-	# 	words.pop(0)
-
-	# 	for pair in words:
-	# 		word, tag = pair
-	# 		file_out.write("{}/{} ".format(word, tag))
-	# 		file_words.write("{} ".format(word))
-	# 	file_out.write("\n")
-	# 	file_words.write("\n")
 
 file_in.close()
 # file_out.close()
